@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoonotesservice.model;
 
 import com.bridgelabz.fundoonotesservice.dto.NotesDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,6 +30,12 @@ public class NotesModel {
     private String emailId;
     private String color;
     private LocalDateTime reminderTime;
+
+    @JsonIgnore()
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<LabelModel> labellist;
+
+
 
     public NotesModel(NotesDTO notesDTO) {
         this.title = notesDTO.getTitle();

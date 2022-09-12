@@ -37,35 +37,12 @@ public class SpringFoxConfig implements WebMvcConfigurer {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
 
-
-
-   /*@Bean
-
-   public Docket api() {
-
-       return new Docket(DocumentationType.SWAGGER_2)
-
-               .select()
-
-               .apis(RequestHandlerSelectors.any())
-
-               .paths(PathSelectors.any())
-
-               .build()
-
-               .apiInfo(getApiInfo());
-
-   }*/
-
     @Bean
-
     public static BeanPostProcessor springfoxHandlerProviderBeanPostProcessor() {
-
         return new BeanPostProcessor() {
 
 
             @Override
-
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 
                 if (bean instanceof WebMvcRequestHandlerProvider || bean instanceof WebFluxRequestHandlerProvider) {
