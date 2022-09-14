@@ -3,6 +3,7 @@ package com.bridgelabz.fundoonotesservice.service;
 import com.bridgelabz.fundoonotesservice.dto.LabelDTO;
 import com.bridgelabz.fundoonotesservice.exception.FundooNotesNotFoundException;
 import com.bridgelabz.fundoonotesservice.model.LabelModel;
+import com.bridgelabz.fundoonotesservice.model.NotesModel;
 import com.bridgelabz.fundoonotesservice.repository.LabelRepository;
 import com.bridgelabz.fundoonotesservice.repository.NotesRepository;
 import com.bridgelabz.fundoonotesservice.util.Response;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +110,29 @@ public class LabelService implements ILabelService {
             }
         }
         throw new FundooNotesNotFoundException(400, "Token is wrong");
+    }
+
+    @Override
+    public Response noteAsLabel(String token, Long labelId, List<Long> noteId) {
+        boolean isUserPresent = restTemplate.getForObject("http:/localhost:9091/note/validate/" + token, Boolean.class);
+        if (isUserPresent) {
+            List<NotesModel> notesModels = new ArrayList<>();
+            noteId.stream().forEach(note -> {
+                Optional<NotesModel> isNotePresent = notesRepository.findById(note);
+                if (isNotePresent.isPresent()){
+                    notesModels.add(isNotePresent.get());
+                }
+            });
+            Optional<LabelModel> isLabelpresent = labelRepository.findById(labelId);
+            if(isLabelpresent.isPresent()){
+                isLabelpresent.get().setNotes(notesModels);
+                labelRepository.save(isLabelpresent.get());
+                return new Response(200,"Sucessfully",isLabelpresent.get());
+            }else{
+                throw new FundooNotesNotFoundException(400,"label id is not found");
+            }
+        }
+        throw new FundooNotesNotFoundException(400,"Token is wrong");
     }
 
 }

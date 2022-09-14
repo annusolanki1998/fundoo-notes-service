@@ -17,6 +17,7 @@ public class ResponseUtil {
     private int errorCode;
     private String message;
     private Object token;
+    private String emailId;
 
 
     public ResponseUtil() {

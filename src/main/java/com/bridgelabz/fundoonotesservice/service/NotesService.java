@@ -182,6 +182,25 @@ public class NotesService implements INotesService {
         }
     }
 
+    @Override
+    public Response addCollaborator(Long noteId, String emailId, List<String> collaborator) {
+        boolean isUserPresent = restTemplate.getForObject("http://localhost:9091/user/validateEmail/" + emailId, Boolean.class);
+        if (isUserPresent) {
+            Optional<NotesModel> isNotePresent = notesRepository.findById(noteId);
+            if (isNotePresent.isPresent()) {
+                isNotePresent.get().setEmailId(emailId);
+                isNotePresent.get().setCollaborator(collaborator);
+                notesRepository.save(isNotePresent.get());
+                return new Response(200, "Sucessfull", isNotePresent.get());
+            } else {
+                throw new FundooNotesNotFoundException(400, "Note id is not found");
+            }
+        } else {
+            throw new FundooNotesNotFoundException(400, "Email id is not found");
+        }
+    }
+
+
 }
 
 

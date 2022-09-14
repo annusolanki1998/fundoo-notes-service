@@ -17,5 +17,6 @@ public interface ILabelService {
 
     Response getLabel(Long labelId, String token);
 
-    // Response noteAsLabel(String token, Long labelId, Long noteId);
+    Response noteAsLabel(String token, Long labelId, List<Long> noteId);
+
 }

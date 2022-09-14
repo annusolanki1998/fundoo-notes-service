@@ -54,12 +54,12 @@ public class LabelController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-//    @PutMapping("/noteAsLabel")
-//    public ResponseEntity<Response> noteAsLabel(@RequestHeader String token,
-//                                                @RequestParam Long labelId,
-//                                                @RequestParam Long noteId){
-//        Response response = labelService.noteAsLabel(token,labelId,noteId);
-//        return new ResponseEntity<>(response,HttpStatus.OK);
-//    }
+    @PostMapping("/noteAsLabel")
+    public ResponseEntity<Response> noteAsLabel(@RequestHeader String token,
+                                                @RequestParam Long labelId,
+                                                @RequestParam List<Long> noteId){
+        Response response = labelService.noteAsLabel(token,labelId,noteId);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
 }

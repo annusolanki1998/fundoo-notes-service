@@ -24,4 +24,6 @@ public interface INotesService {
     Response pinNote(Long id, String token);
 
     Response addColour(Long id, String colour, String token);
+
+    Response addCollaborator(Long noteId, String emailId, List<String> collaborator);
 }

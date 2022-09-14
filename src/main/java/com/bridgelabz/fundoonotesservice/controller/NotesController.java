@@ -83,5 +83,13 @@ public class NotesController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    @PostMapping("/addCollaborator")
+    public ResponseEntity<Response> addCollaborator(@RequestParam Long noteId,
+                                                    @RequestParam String emailId,
+                                                    @RequestParam List<String> collaborator){
+        Response response=notesService.addCollaborator(noteId,emailId,collaborator);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
 
 }

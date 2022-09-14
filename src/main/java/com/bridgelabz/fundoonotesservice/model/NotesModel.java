@@ -12,9 +12,7 @@ import java.util.List;
 @Table(name = "notes")
 @Data
 public class NotesModel {
-    @Column
-    @ElementCollection(targetClass = String.class)
-    List<String> collaborator;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -31,10 +29,12 @@ public class NotesModel {
     private String color;
     private LocalDateTime reminderTime;
 
+    @ElementCollection(targetClass = String.class)
+    private List<String> collaborator;
+
     @JsonIgnore()
     @ManyToMany(cascade = CascadeType.ALL)
     private List<LabelModel> labellist;
-
 
 
     public NotesModel(NotesDTO notesDTO) {
