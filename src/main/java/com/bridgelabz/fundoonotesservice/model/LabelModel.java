@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*
+ * Purpose : LabelModel are used to transfer the data into database
+ * Version : 1.0
+ * @author : Annu Kumari
+ * */
+
 @Data
 @Entity
 @Table(name = "label")
@@ -15,8 +21,6 @@ public class LabelModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String labelName;
-    private Long userId;
-    private Long noteId;
     private String emailId;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;

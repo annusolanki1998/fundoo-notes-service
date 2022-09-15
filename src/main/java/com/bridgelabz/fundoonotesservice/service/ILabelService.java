@@ -6,6 +6,13 @@ import com.bridgelabz.fundoonotesservice.util.Response;
 
 import java.util.List;
 
+/**
+ * Purpose : Creating Interface for fundoo label service
+ * @author : Annu Kumari
+ * @Param : All service methods
+ * Version : 1.0
+ */
+
 public interface ILabelService {
     Response addLabel(LabelDTO labelDTO, String token);
 
@@ -17,6 +24,5 @@ public interface ILabelService {
 
     Response getLabel(Long labelId, String token);
 
-    Response noteAsLabel(String token, Long labelId, List<Long> noteId);
 
 }

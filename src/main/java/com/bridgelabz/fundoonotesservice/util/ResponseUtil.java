@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /*
- * Purpose : Response used to handle the exception
+ * Purpose : Response util used to handle the exception
  * Version : 1.0
  * @author : Annu Kumari
  * */
-
 
 
 @Data
@@ -17,7 +16,6 @@ public class ResponseUtil {
     private int errorCode;
     private String message;
     private Object token;
-    private String emailId;
 
 
     public ResponseUtil() {

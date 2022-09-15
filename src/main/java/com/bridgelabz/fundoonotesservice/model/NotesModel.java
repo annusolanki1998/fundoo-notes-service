@@ -8,6 +8,12 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/*
+ * Purpose : NotesModel are used to transfer the data into database
+ * Version : 1.0
+ * @author : Annu Kumari
+ * */
+
 @Entity
 @Table(name = "notes")
 @Data
@@ -15,22 +21,20 @@ public class NotesModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long Id;
     private String title;
     private String description;
-    private long userId;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;
     private boolean trash;
     private boolean archieve;
     private boolean pin;
-    private long labelId;
     private String emailId;
     private String color;
     private LocalDateTime reminderTime;
 
     @ElementCollection(targetClass = String.class)
-    private List<String> collaborator;
+    private List<String> collaborators;
 
     @JsonIgnore()
     @ManyToMany(cascade = CascadeType.ALL)
@@ -40,9 +44,8 @@ public class NotesModel {
     public NotesModel(NotesDTO notesDTO) {
         this.title = notesDTO.getTitle();
         this.description = notesDTO.getDescription();
-        this.userId = notesDTO.getUserId();
         this.emailId = notesDTO.getEmailId();
-        this.color = notesDTO.getColor();
+
     }
 
     public NotesModel() {

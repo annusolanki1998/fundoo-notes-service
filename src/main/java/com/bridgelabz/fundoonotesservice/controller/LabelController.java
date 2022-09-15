@@ -19,12 +19,24 @@ public class LabelController {
     @Autowired
     ILabelService labelService;
 
+    /*
+     * Purpose : Create label in fundoo label
+     * @author : Annu Kumari
+     * @Param : labelDTO and token
+     * */
+
     @PostMapping("/addLabel")
     public ResponseEntity<Response> addLabel(@Valid @RequestBody LabelDTO labelDTO,
                                              @RequestHeader String token) {
         Response response = labelService.addLabel(labelDTO, token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    /*
+     * Purpose : Update existing label details by using id
+     * @author : Annu Kumari
+     * @Param : labelId,labelDTO and token
+     * */
 
     @PostMapping("/updateLabel/{id}")
     public ResponseEntity<Response> updateLabel(@Valid @RequestBody LabelDTO labelDTO,
@@ -34,11 +46,23 @@ public class LabelController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /*
+     * Purpose : Retrieve all label details
+     * @author : Annu Kumari
+     * @Param :  token
+     * */
+
     @GetMapping("/getLabels")
     public ResponseEntity<List> getLabels(@RequestHeader String token) {
         List<LabelModel> responseUtil = labelService.getLabels(token);
         return new ResponseEntity<>(responseUtil, HttpStatus.OK);
     }
+
+    /*
+     * Purpose : Delete existing label details by using id
+     * @author : Annu Kumari
+     * @Param : labelId and token
+     * */
 
     @DeleteMapping("/deleteLabel/{id}")
     public ResponseEntity<Response> deleteLabel(@RequestHeader String token,
@@ -47,6 +71,12 @@ public class LabelController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /*
+     * Purpose : Retrieve existing label details by using id
+     * @author : Annu Kumari
+     * @Param : labelId and token
+     * */
+
     @GetMapping("/getLabel/{id}")
     public ResponseEntity<Response> getLabel(@RequestParam Long labelId,
                                              @RequestHeader String token) {
@@ -54,12 +84,5 @@ public class LabelController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping("/noteAsLabel")
-    public ResponseEntity<Response> noteAsLabel(@RequestHeader String token,
-                                                @RequestParam Long labelId,
-                                                @RequestParam List<Long> noteId){
-        Response response = labelService.noteAsLabel(token,labelId,noteId);
-        return new ResponseEntity<>(response,HttpStatus.OK);
-    }
 
 }

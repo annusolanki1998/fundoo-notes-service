@@ -1,12 +1,13 @@
 package com.bridgelabz.fundoonotesservice.exception;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /*
- * Purpose : AdminNotFoundException is used to handle the exceptions
+ * Purpose : FundooNotesNotFoundException is used to handle the exceptions
  * Version : 1.0
  * @author : Annu kumari
  * */
 
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @ResponseStatus
 public class FundooNotesNotFoundException extends RuntimeException {

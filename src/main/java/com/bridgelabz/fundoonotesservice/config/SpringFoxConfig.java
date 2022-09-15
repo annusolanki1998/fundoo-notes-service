@@ -24,10 +24,10 @@ import java.util.stream.Collectors;
 
 
 /*
- * Purpose :Execute all REST Apis
+ * Purpose : Execute all REST Apis
  * Version : 3.0
  * @author : Annu Kumari
- * @Visit Link :  http://localhost:9092/swagger-ui/
+ * @Visit Link : http://localhost:9092/swagger-ui/
  *
  * */
 

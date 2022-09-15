@@ -3,9 +3,7 @@ package com.bridgelabz.fundoonotesservice.service;
 import com.bridgelabz.fundoonotesservice.dto.LabelDTO;
 import com.bridgelabz.fundoonotesservice.exception.FundooNotesNotFoundException;
 import com.bridgelabz.fundoonotesservice.model.LabelModel;
-import com.bridgelabz.fundoonotesservice.model.NotesModel;
 import com.bridgelabz.fundoonotesservice.repository.LabelRepository;
-import com.bridgelabz.fundoonotesservice.repository.NotesRepository;
 import com.bridgelabz.fundoonotesservice.util.Response;
 import com.bridgelabz.fundoonotesservice.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * Purpose : Creating service for fundoo label
+ * @author : Annu Kumari
+ * @Param : business logic is present here
+ * Version : 1.0
+ */
 
 @Service
 public class LabelService implements ILabelService {
@@ -31,12 +35,15 @@ public class LabelService implements ILabelService {
     @Autowired
     RestTemplate restTemplate;
 
-    @Autowired
-    NotesRepository notesRepository;
+    /**
+     * Purpose : Creating method to add fundoo label details
+     * @author : Annu Kumari
+     * @Param : labelDTO and token
+     */
 
     @Override
     public Response addLabel(LabelDTO labelDTO, String token) {
-        boolean isLabelPresent = restTemplate.getForObject("http://localhost:9091/user/validate/" + token, Boolean.class);
+        boolean isLabelPresent = restTemplate.getForObject("http://USER-CLIENT:9091/user/validate/" + token, Boolean.class);
         if (isLabelPresent) {
             LabelModel labelModel = new LabelModel(labelDTO);
             labelModel.setRegisterDate(LocalDateTime.now());
@@ -49,9 +56,15 @@ public class LabelService implements ILabelService {
         throw new FundooNotesNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose : Creating method to update existing fundoo label
+     * @author : Annu Kumari
+     * @Param : labelDTO,labelId and token
+     */
+
     @Override
     public Response updateLabel(LabelDTO labelDTO, String token, Long labelId) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:9091/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://USER-CLIENT:9091/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<LabelModel> isLabelPresent = labelRepository.findById(labelId);
             if (isLabelPresent.isPresent()) {
@@ -69,9 +82,15 @@ public class LabelService implements ILabelService {
         throw new FundooNotesNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose : Creating method to get fundoo label details
+     * @author : Annu Kumari
+     * @Param : token
+     */
+
     @Override
     public List<LabelModel> getLabels(String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:9091/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://USER-CLIENT:9091/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             List<LabelModel> isLabelPresent = labelRepository.findAll();
             if (isLabelPresent.size() > 0) {
@@ -83,9 +102,15 @@ public class LabelService implements ILabelService {
         throw new FundooNotesNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose : Creating method to delete existing fundoo label details
+     * @author : Annu Kumari
+     * @Param : labelId and token
+     */
+
     @Override
     public Response deleteLabel(Long labelId, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http://localhost:9091/user/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://USER-CLIENT:9091/user/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<LabelModel> isIdPresent = labelRepository.findById(labelId);
             if (isIdPresent.isPresent()) {
@@ -98,9 +123,15 @@ public class LabelService implements ILabelService {
         throw new FundooNotesNotFoundException(400, "Token is wrong");
     }
 
+    /**
+     * Purpose : Creating method to get fundoo label details
+     * @author : Annu Kumari
+     * @Param : labelId and token
+     */
+
     @Override
     public Response getLabel(Long labelId, String token) {
-        boolean isUserPresent = restTemplate.getForObject("http:/localhost:9091/note/validate/" + token, Boolean.class);
+        boolean isUserPresent = restTemplate.getForObject("http://USER-CLIENT:9091/note/validate/" + token, Boolean.class);
         if (isUserPresent) {
             Optional<LabelModel> isIdPresent = labelRepository.findById(labelId);
             if (isIdPresent.isPresent()) {
@@ -111,29 +142,5 @@ public class LabelService implements ILabelService {
         }
         throw new FundooNotesNotFoundException(400, "Token is wrong");
     }
-
-    @Override
-    public Response noteAsLabel(String token, Long labelId, List<Long> noteId) {
-        boolean isUserPresent = restTemplate.getForObject("http:/localhost:9091/note/validate/" + token, Boolean.class);
-        if (isUserPresent) {
-            List<NotesModel> notesModels = new ArrayList<>();
-            noteId.stream().forEach(note -> {
-                Optional<NotesModel> isNotePresent = notesRepository.findById(note);
-                if (isNotePresent.isPresent()){
-                    notesModels.add(isNotePresent.get());
-                }
-            });
-            Optional<LabelModel> isLabelpresent = labelRepository.findById(labelId);
-            if(isLabelpresent.isPresent()){
-                isLabelpresent.get().setNotes(notesModels);
-                labelRepository.save(isLabelpresent.get());
-                return new Response(200,"Sucessfully",isLabelpresent.get());
-            }else{
-                throw new FundooNotesNotFoundException(400,"label id is not found");
-            }
-        }
-        throw new FundooNotesNotFoundException(400,"Token is wrong");
-    }
-
 }
 
