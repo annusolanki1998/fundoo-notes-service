@@ -2,7 +2,9 @@ package com.bridgelabz.fundoonotesservice.model;
 
 import com.bridgelabz.fundoonotesservice.dto.NotesDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,14 +17,16 @@ import java.util.List;
  * */
 
 @Entity
-@Table(name = "notes")
+@Table(name = "fundoonote")
 @Data
+@AllArgsConstructor
 public class NotesModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
     private String title;
+    private Long userId;
     private String description;
     private LocalDateTime registerDate;
     private LocalDateTime updateDate;
@@ -31,10 +35,11 @@ public class NotesModel {
     private boolean pin;
     private String emailId;
     private String color;
-    private LocalDateTime reminderTime;
+    private String reminderTime;
+    private Long collaboratorUserId;
 
-    @ElementCollection(targetClass = String.class)
-    private List<String> collaborators;
+    //@ElementCollection(targetClass = String.class)
+    private String collaborator;
 
     @JsonIgnore()
     @ManyToMany(cascade = CascadeType.ALL)

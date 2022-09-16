@@ -20,6 +20,8 @@ public class LabelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long userId;
+
     private String labelName;
     private String emailId;
     private LocalDateTime registerDate;

@@ -37,7 +37,7 @@ public class NotesController {
      * @Param : noteId,notesDTO and token
      * */
 
-    @PutMapping("/updateNote/{id}")
+    @PutMapping("/updateNote/{noteId}")
     public ResponseEntity<Response> updateNote(@Valid @RequestBody NotesDTO notesDTO,
                                                @PathVariable Long noteId,
                                                @RequestHeader String token) {
@@ -63,7 +63,7 @@ public class NotesController {
      * @Param : noteId and token
      * */
 
-    @DeleteMapping("/deleteNote/{id}")
+    @DeleteMapping("/deleteNote/{noteId}")
     public ResponseEntity<Response> deleteNote(@RequestHeader String token,
                                                @RequestParam Long noteId) {
         Response response = notesService.deleteNote(noteId, token);
@@ -76,7 +76,7 @@ public class NotesController {
      * @Param : noteId and token
      * */
 
-    @GetMapping("/getNotes/{id}")
+    @GetMapping("/getNotes/{noteId}")
     public ResponseEntity<Response> getNotes(@RequestParam Long noteId,
                                              @RequestHeader String token) {
         Response response = notesService.getNotes(noteId, token);
@@ -143,13 +143,15 @@ public class NotesController {
      * @Param : noteId,emailId and collaborators
      * */
 
-    @PostMapping("/addCollaborator")
-    public ResponseEntity<Response> addCollaborator(@RequestParam Long noteId,
-                                                    @RequestParam String emailId,
-                                                    @RequestParam List<String> collaborators) {
-        Response response = notesService.addCollaborator(noteId, emailId, collaborators);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+//    @PostMapping("/addCollaborator")
+//    public ResponseEntity<Response> addCollaborator(@RequestParam Long noteId,
+//                                                    @RequestParam String emailId,
+//                                                    @RequestParam List<String> collaborators) {
+//        Response response = notesService.addCollaborator(noteId, emailId, collaborators);
+//        return new ResponseEntity<>(response, HttpStatus.OK);
+//    }
+
+
 
     /*
      * Purpose : Create note as label
@@ -164,5 +166,37 @@ public class NotesController {
         Response response = notesService.noteAsLabel(token, noteId, labelId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    /*
+     * Purpose : Add collaborator
+     * @author : Annu Kumari
+     * @Param : token,emailId,noteId collaborator and collaboratorUserId
+     * */
+
+    @PostMapping("/addCollaborator")
+    public ResponseEntity<Response> addCollaborator(@RequestHeader String token,
+                                                    @RequestParam String emailId,
+                                                    @RequestParam Long noteId,
+                                                    @RequestParam String collaborator,
+                                                    @RequestParam Long collaboratorUserId){
+        Response response = notesService.addCollaborator(token,emailId,noteId,collaborator,collaboratorUserId);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    /*
+     * Purpose : Add remainder time
+     * @author : Annu Kumari
+     * @Param : token, noteId and remainderTime
+     * */
+
+    @PostMapping("/setRemainder/{noteId}")
+    public ResponseEntity<Response> setRemainder(@RequestHeader String token,
+                                                 @PathVariable Long noteId,
+                                                 @RequestParam String remainderTime){
+        Response response = notesService.setRemainder(token,noteId,remainderTime);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
 
 }

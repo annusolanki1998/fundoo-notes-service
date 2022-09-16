@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Purpose : Creating Interface for fundoo notes service
+ *
  * @author : Annu Kumari
  * @Param : All service methods
  * Version : 1.0
@@ -32,7 +33,11 @@ public interface INotesService {
 
     Response addColour(Long noteId, String colour, String token);
 
-    Response addCollaborator(Long noteId, String emailId, List<String> collaborators);
+   // Response addCollaborator(Long noteId, String emailId, List<String> collaborators);
 
     Response noteAsLabel(String token, Long noteId, List<Long> labelId);
+
+    Response addCollaborator(String token, String emailId, Long noteId, String collaborator, Long collaboratorUserId);
+
+    Response setRemainder(String token, Long noteId, String remainderTime);
 }

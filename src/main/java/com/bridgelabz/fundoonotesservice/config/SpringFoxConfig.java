@@ -135,21 +135,6 @@ public class SpringFoxConfig implements WebMvcConfigurer {
 
     }
 
-   /*private ApiInfo getApiInfo() {
-
-       Contact contact = new Contact("Learner Management System", "http://bridgelabz.com&quot;,
-
-               "sunil.patil@bridgelabz.com");
-
-       return new ApiInfoBuilder().title("LMS Service Swagger API")
-
-               .description("LMS Service Swagger API for Learner Management System").version("0.0.1-SNAPSHOT")
-
-               .license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0").contact(contact)
-
-               .build();
-
-   }*/
 
     List<SecurityReference> defaultAuth() {
 

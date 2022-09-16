@@ -1,7 +1,10 @@
 package com.bridgelabz.fundoonotesservice.repository;
 
 import com.bridgelabz.fundoonotesservice.model.LabelModel;
+import com.bridgelabz.fundoonotesservice.model.NotesModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
 
 /**
  * Purpose : Creating repository for fundoo label
@@ -13,4 +16,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LabelRepository extends JpaRepository<LabelModel, Long> {
 
+    Optional<NotesModel> findByUserId(Long usersId);
 }

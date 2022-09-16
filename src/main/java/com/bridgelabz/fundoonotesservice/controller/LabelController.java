@@ -38,7 +38,7 @@ public class LabelController {
      * @Param : labelId,labelDTO and token
      * */
 
-    @PostMapping("/updateLabel/{id}")
+    @PostMapping("/updateLabel/{labelId}")
     public ResponseEntity<Response> updateLabel(@Valid @RequestBody LabelDTO labelDTO,
                                                 @RequestHeader String token,
                                                 @RequestParam Long labelId) {
@@ -64,7 +64,7 @@ public class LabelController {
      * @Param : labelId and token
      * */
 
-    @DeleteMapping("/deleteLabel/{id}")
+    @DeleteMapping("/deleteLabel/{labelId}")
     public ResponseEntity<Response> deleteLabel(@RequestHeader String token,
                                                 @RequestParam Long labelId) {
         Response response = labelService.deleteLabel(labelId, token);
@@ -77,7 +77,7 @@ public class LabelController {
      * @Param : labelId and token
      * */
 
-    @GetMapping("/getLabel/{id}")
+    @GetMapping("/getLabel/{labelId}")
     public ResponseEntity<Response> getLabel(@RequestParam Long labelId,
                                              @RequestHeader String token) {
         Response response = labelService.getLabel(labelId, token);
